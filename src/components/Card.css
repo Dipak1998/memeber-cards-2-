@@ -1,0 +1,16 @@
+/* .member__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: wrap;
+}
+.member__card-item {
+  flex: 1;
+} */
+.member__card {
+  margin: auto;
+  width: 1080px;
+}
+.member__card-item {
+  margin: 10px;
+}

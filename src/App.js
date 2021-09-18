@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import CardList from './components/CardList'
+import { members } from './user_data'
+class App extends Component {
+  // es6 module
+  constructor() {
+    // constructor is the place of initialize the data, state etc.
+    super()
+    this.state = {
+      members: [],
+    }
+    console.log('constructor call ', this.state.members)
+  }
+  async componentDidMount() {
+    await this.setState({ members: members })
+    console.log('componentDidMount call ', this.state.members)
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    this.fetchMemebr()
+  }
+  fetchMemebr = () => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        this.setState({
+          members: data,
+        })
+      })
+      .catch((e) => {
+        console.log('Error is :', e)
+      })
+  }
+  render() {
+    console.log('render is called...')
+    return (
+      <div className=''>
+        <h1>Hello Rohan</h1>
+        <CardList members={this.state.members} />
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
